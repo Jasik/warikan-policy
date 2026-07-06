@@ -1,8 +1,3 @@
-
----
-title: Privacy Policy
----
-
 # Privacy Policy for WariKan
 
 **Effective date:** July 6, 2026
