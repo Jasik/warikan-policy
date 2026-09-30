@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<title>WariKan invite</title>
+<style>
+  :root {
+    --bg: #f5f6f8; --card: #ffffff; --text: #16181d; --muted: #5d6470;
+    --accent: #007aff; --accent-text: #ffffff; --line: #e3e5ea; --badge: #16181d; --badge-text: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1115; --card: #1a1d23; --text: #f2f3f5; --muted: #9aa1ad;
+      --accent: #0a84ff; --line: #2b2f37; --badge: #f2f3f5; --badge-text: #16181d;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    padding: 24px 16px calc(24px + env(safe-area-inset-bottom));
+    background: var(--bg); color: var(--text);
+    font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Noto Sans JP", Roboto, sans-serif;
+  }
+  main { width: 100%; max-width: 400px; background: var(--card); border-radius: 20px; padding: 28px 24px; text-align: center; }
+  .logo { width: 64px; height: 64px; margin: 0 auto 16px; border-radius: 16px; background: var(--accent);
+    color: var(--accent-text); font-size: 32px; font-weight: 700; line-height: 64px; }
+  h1 { font-size: 22px; margin: 0 0 8px; }
+  p { margin: 0 0 20px; color: var(--muted); }
+  .open { display: block; width: 100%; padding: 14px; border-radius: 14px; border: 0; background: var(--accent);
+    color: var(--accent-text); font: inherit; font-weight: 600; text-decoration: none; }
+  h2 { font-size: 15px; margin: 28px 0 12px; padding-top: 20px; border-top: 1px solid var(--line); }
+  .stores { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .badge { flex: 1 1 150px; padding: 10px 12px; border-radius: 10px; background: var(--badge); color: var(--badge-text);
+    text-decoration: none; font-size: 14px; font-weight: 600; line-height: 1.2; }
+  .badge small { display: block; font-size: 11px; font-weight: 400; opacity: .8; }
+  .hint { margin: 16px 0 0; font-size: 14px; }
+  .error { color: #d70015; }
+  @media (prefers-color-scheme: dark) { .error { color: #ff6961; } }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <div class="logo" aria-hidden="true">W</div>
+  <h1 id="title">You're invited to a WariKan trip</h1>
+  <p id="lead">Open the invite in the WariKan app to join the trip.</p>
+  <p id="invalid" class="error" hidden>This invite link is broken. Ask for a new one.</p>
+  <a id="open" class="open" href="#">Open in WariKan</a>
+
+  <h2 id="get">Get the app</h2>
+  <div class="stores">
+    <a id="appstore" class="badge" href="#" rel="noopener"><small id="as-pre">Download on the</small>App Store</a>
+    <a id="play" class="badge" href="#" rel="noopener"><small id="gp-pre">Get it on</small>Google Play</a>
+  </div>
+  <p id="hint" class="hint">Installed it? Tap Open in WariKan again.</p>
+  <p id="inapp" class="hint">If nothing happens, open this page in Safari or Chrome.</p>
+  <noscript><p class="hint">Turn on JavaScript to open the invite.</p></noscript>
+</main>
+<script>
+(function () {
+  var APP_STORE_URL = "https://apps.apple.com/app/id6767213435";
+  var ANDROID_PACKAGE = "org.warikan.project";
+  var PLAY_URL = "https://play.google.com/store/apps/details?id=" + ANDROID_PACKAGE;
+  var UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+  var STRINGS = {
+    en: {
+      title: "You're invited to a WariKan trip",
+      lead: "Open the invite in the WariKan app to join the trip.",
+      invalid: "This invite link is broken. Ask for a new one.",
+      open: "Open in WariKan", get: "Get the app",
+      asPre: "Download on the", gpPre: "Get it on",
+      hint: "Installed it? Tap Open in WariKan again.",
+      inapp: "If nothing happens, open this page in Safari or Chrome.",
+      page: "WariKan invite"
+    },
+    ru: {
+      title: "Тебя пригласили в поездку WariKan",
+      lead: "Открой приглашение в приложении WariKan, чтобы присоединиться.",
+      invalid: "Ссылка-приглашение повреждена. Попроси новую.",
+      open: "Открыть в WariKan", get: "Установить приложение",
+      asPre: "Загрузите в", gpPre: "Доступно в",
+      hint: "Приложение уже установлено? Нажми «Открыть в WariKan» ещё раз.",
+      inapp: "Если ничего не происходит, открой эту страницу в Safari или Chrome.",
+      page: "Приглашение WariKan"
+    },
+    ja: {
+      title: "WariKanの旅行に招待されました",
+      lead: "WariKanアプリで招待を開いて、旅行に参加しましょう。",
+      invalid: "この招待リンクは無効です。新しいリンクをもらってください。",
+      open: "WariKanで開く", get: "アプリを入手",
+      asPre: "ダウンロード", gpPre: "入手",
+      hint: "インストールしたら、もう一度「WariKanで開く」をタップしてください。",
+      inapp: "何も起きない場合は、このページをSafariまたはChromeで開いてください。",
+      page: "WariKanへの招待"
+    }
+  };
+
+  var langs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"]);
+  var lang = "en";
+  for (var i = 0; i < langs.length; i++) {
+    var code = String(langs[i] || "").toLowerCase().slice(0, 2);
+    if (STRINGS[code]) { lang = code; break; }
+  }
+  var t = STRINGS[lang];
+  document.documentElement.lang = lang;
+  document.title = t.page;
+  function setText(id, text) { document.getElementById(id).textContent = text; }
+  setText("title", t.title); setText("lead", t.lead); setText("invalid", t.invalid);
+  setText("open", t.open); setText("get", t.get); setText("hint", t.hint); setText("inapp", t.inapp);
+  setText("as-pre", t.asPre); setText("gp-pre", t.gpPre);
+
+  document.getElementById("appstore").href = APP_STORE_URL;
+  document.getElementById("play").href = PLAY_URL;
+
+  // Only a strictly validated UUID ever reaches the deep link.
+  var token = new URLSearchParams(location.search).get("token") || "";
+  if (!UUID.test(token)) {
+    document.getElementById("lead").hidden = true;
+    document.getElementById("open").hidden = true;
+    document.getElementById("hint").hidden = true;
+    document.getElementById("inapp").hidden = true;
+    document.getElementById("invalid").hidden = false;
+    return;
+  }
+  token = token.toLowerCase();
+
+  var ua = navigator.userAgent || "";
+  var isAndroid = /android/i.test(ua);
+  var isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  var deepLink = "warikan://join?token=" + token;
+  var openHref = isAndroid
+    ? "intent://join?token=" + token + "#Intent;scheme=warikan;package=" + ANDROID_PACKAGE +
+      ";S.browser_fallback_url=" + encodeURIComponent(PLAY_URL) + ";end"
+    : deepLink;
+  document.getElementById("open").href = openHref;
+
+  // Show the store that fits the device first.
+  if (isAndroid) document.getElementById("appstore").hidden = true;
+  if (isIOS) document.getElementById("play").hidden = true;
+
+  // No auto-open on load: without the app, iOS Safari answers a scripted
+  // warikan:// navigation with an "address is invalid" alert. The app opens
+  // only from the button.
+})();
+</script>
+</body>
+</html>
